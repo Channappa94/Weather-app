@@ -10,16 +10,29 @@ import UIKit
 import WebKit
 
 class ViewController: UIViewController {
-
-    @IBOutlet weak var webview: WKWebView!
+    
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var textField: UITextField!
+    
+    
+    
+    
+    
+    
+    @IBAction func buttonPressed(_ sender: Any) {
+        let newtextField = textField.text!
+        let newstr = newtextField.replacingOccurrences(of: " ", with: "-")
+        var weather = "https://www.weather-forecast.com/locations/" + newstr + "/forecasts/latest"
+        let url = URL(string: weather)
+        
+        print(url)
+        
+    }
+    
+    //@IBOutlet weak var webview: WKWebView!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        var url = URL(string: "https://www.weather-forecast.com/locations/New-York/forecasts/latest")
-        let urlrequest = URLRequest(url: url!)
-        
-//        webview.load(urlrequest)
-//        print(webview!)
         
     }
 
