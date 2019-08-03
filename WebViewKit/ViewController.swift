@@ -10,29 +10,31 @@ import UIKit
 import WebKit
 
 class ViewController: UIViewController {
-    
-    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var weatherword: UITextView!
     @IBOutlet weak var textField: UITextField!
-    
-    
-    
-    
-    
     
     @IBAction func buttonPressed(_ sender: Any) {
         let newtextField = textField.text!
-        let newstr = newtextField.replacingOccurrences(of: " ", with: "-")
-        var weather = "https://www.weather-forecast.com/locations/" + newstr + "/forecasts/latest"
-        let url = URL(string: weather)
+        let newString = newtextField.replacingOccurrences(of: " ", with: "-")
         
+        let startWord = "p class=\"b-forecast__table-description-content\">"
+        let url = URL(string: "https://www.weather-forecast.com/locations/" + newString + "/forecasts/latest")!
         print(url)
-        
+        do {
+            let contents = try String(contentsOf: url)
+            var newcontents=contents.components(separatedBy: "<")
+            var newIndex = newcontents.firstIndex(of: startWord)
+            var newword = newcontents[newIndex!+1]
+            var newcall = newword.components(separatedBy: ">")
+            weatherword.text = newcall[1]
+        } catch {
+            weatherword.text = "Enter a valid place"
+        }
     }
     
-    //@IBOutlet weak var webview: WKWebView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "images.png")!)
         
     }
 
